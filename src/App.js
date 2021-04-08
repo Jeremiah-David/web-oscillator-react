@@ -1,6 +1,17 @@
+import logo from './logo.svg';
+import './App.css';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
+import Hand from '../src/components/hand/index'
+
+
+
+
+
+
 import './App.css';
 
 function App() {
+  
 
   let oscillatorX, oscillatorY
 
@@ -68,11 +79,15 @@ function App() {
 
   return (
     <div>
+            <Router>
+       <Route path="/hand" component= { Hand } />
+      <h1>sanity check</h1>
       <button type="button" onClick={() => { playX(); playY()}}>play/pause</button><br></br>
       <button type="button" onClick={setSine}>sine</button><br></br>
       <button type="button" onClick={setTriangle}>triangle</button><br></br>
       <button type="button" onClick={setSquare}>square</button><br></br>
       <button type="button" onClick={setSawtooth}>sawtooth</button><br></br>
+      </Router>
     </div>
   );
 }

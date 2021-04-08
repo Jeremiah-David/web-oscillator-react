@@ -1,10 +1,27 @@
+import { useEffect, useState } from 'react'
+
+
+
+
 function Grid (props) {
 
+    const [indexFingerX, setIndexFingerX] = useState([props.indexFinger[0]])
+
+    useEffect(() => {
+        function handleStatusChange(indexFingerX) {
+          setIndexFingerX(props.indexFinger[0]);
+        }
+    }
+)
+    
+
+
+    console.log(props.indexFinger[0])
     let oscillatorX, oscillatorY
 
     let oscX = {
         type: "sine",
-        frequency: 200,
+        frequency: indexFingerX,
         playing: false
     }
 

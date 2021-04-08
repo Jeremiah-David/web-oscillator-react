@@ -21,7 +21,7 @@ function App() {
 
   const runHandpose = async () => {
     const net = await handpose.load();
-    console.log("Handpose model loaded.");
+    // console.log("Handpose model loaded.");
     //  Loop and detect hands
     setInterval(() => {
       detect(net);

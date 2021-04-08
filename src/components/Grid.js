@@ -1,16 +1,17 @@
+import React, { useState } from 'react'
 function Grid (props) {
 
-    let oscillatorX, oscillatorY
+    const [fingerIndexX, setFingerIndexX] = useState(200)
+
+    // function changeFingerIndex(){}
+    //     setFingerIndexX(props.indexFinger[0])
+    // }
+
+    let oscillatorX
 
     let oscX = {
         type: "sine",
-        frequency: 200,
-        playing: false
-    }
-
-    let oscY = {
-        type: oscX.type,
-        frequency: 200 * 1.01,
+        frequency: props.indexFinger[0],
         playing: false
     }
 
@@ -30,45 +31,39 @@ function Grid (props) {
         }
     }
 
-    function playY() {
-        if (oscY.playing) {
-            oscillatorY.stop()
-            oscY.playing = false
-        } else {
-            oscillatorY = audioContext.createOscillator()
-            oscillatorY.type = oscY.type
-            oscillatorY.frequency.setValueAtTime(oscY.frequency, audioContext.currentTime)
-            oscillatorY.connect(audioContext.destination)
-            oscillatorY.start()
-            oscY.playing = true
-        }
-    }
-
     function setSine() {
         oscX.type = "sine"
-        oscY.type = "sine"
     }
 
     function setTriangle() {
         oscX.type = "triangle"
-        oscY.type = "triangle"
     }
 
     function setSquare() {
         oscX.type = "square"
-        oscY.type = "square"
     }
 
     function setSawtooth() {
         oscX.type = "sawtooth"
-        oscY.type = "sawtooth"
     }
+
+    function changeFreq(){
+        if(props.indexFinger[0] > 0){
+            playX()
+            playX()
+            console.log(oscX.frequency)
+        }
+    }
+
+    setInterval(changeFreq, 100)
 
     return (
         <div className="osc">
-            {console.log('grid', props)}
+            {/* {console.log(oscX.frequency)} */}
             <h1>Where the music happens</h1>
-            <button type="button" onClick={() => { playX(); playY() }}>play/pause</button><br></br>
+            {/* <button type="button" onClick={() => { playX(); playY() }}>play/pause</button><br></br> */}
+            <button type="button" onClick={playX}>play/pause</button><br></br>
+            {/* <button type="button" onClick={changeFreq}>change frequency</button><br></br> */}
             <button type="button" onClick={setSine}>sine</button><br></br>
             <button type="button" onClick={setTriangle}>triangle</button><br></br>
             <button type="button" onClick={setSquare}>square</button><br></br>

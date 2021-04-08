@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useState, useRef } from "react";
 // import logo from './logo.svg';
 import * as tf from "@tensorflow/tfjs";
 import * as handpose from "@tensorflow-models/handpose";
@@ -9,6 +9,15 @@ import Grid from '../Grid'
 function App() {
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
+
+    let indexX 
+    let indexY 
+    let indexZ 
+
+  const [indexFinger, setIndexFinger] = useState([indexX, indexY, indexZ,])
+  
+
+
 
   const runHandpose = async () => {
     const net = await handpose.load();
@@ -43,8 +52,13 @@ function App() {
       const hand = await net.estimateHands(video);
     //   console.log(hand);
       if (hand.length > 0) {
-          console.log('Index x axis', hand[0].landmarks[8][0])
-          console.log('Index y axis', hand[0].landmarks[8][1])
+        //   console.log('Index x axis', hand[0].landmarks[8][0])
+          let indexX =  hand[0].landmarks[8][0]
+          let indexY = hand[0].landmarks[8][1]
+          let indexZ = hand[0].landmarks[8][2]
+          
+          setIndexFinger([indexX, indexY, indexZ])
+
       }
 
 
@@ -89,7 +103,7 @@ function App() {
           }}
         />
       </header>
-      <Grid />
+      <Grid indexFinger={indexFinger}/>
     </div>
   );
 }

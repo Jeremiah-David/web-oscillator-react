@@ -1,4 +1,4 @@
-function Grid() {
+function Grid (props) {
 
     let oscillatorX, oscillatorY
 
@@ -66,6 +66,7 @@ function Grid() {
 
     return (
         <div className="osc">
+            {console.log('grid', props)}
             <h1>Where the music happens</h1>
             <button type="button" onClick={() => { playX(); playY() }}>play/pause</button><br></br>
             <button type="button" onClick={setSine}>sine</button><br></br>

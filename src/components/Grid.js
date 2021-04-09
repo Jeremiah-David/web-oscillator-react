@@ -7,12 +7,15 @@ function Grid (props) {
     //     setFingerIndexX(props.indexFinger[0])
     // }
 
+
+
     let oscillatorX
 
     let oscX = {
         type: "sine",
-        frequency: props.indexFinger[0],
-        playing: false
+        frequency: 200,
+        playing: false, 
+        fingerPos: Math.floor(fingerIndexX)
     }
 
     const audioContext = new AudioContext()
@@ -49,9 +52,19 @@ function Grid (props) {
 
     function changeFreq(){
         if(props.indexFinger[0] > 0){
-            playX()
-            playX()
-            console.log(oscX.frequency)
+            setFingerIndexX(props.indexFinger[0])
+            console.log('fingerindex', fingerIndexX)
+            if (oscX.playing) {
+                oscillatorX.stop()
+                oscX.playing = false
+            } else {
+                oscillatorX = audioContext.createOscillator()
+                oscillatorX.type = oscX.type
+                oscillatorX.frequency.setValueAtTime(oscX.fingerPos, audioContext.currentTime)
+                oscillatorX.connect(audioContext.destination)
+                oscillatorX.start()
+                oscX.playing = true
+            }
         }
     }
 
@@ -59,7 +72,7 @@ function Grid (props) {
 
     return (
         <div className="osc">
-            {/* {console.log(oscX.frequency)} */}
+            {console.log(fingerIndexX)}
             <h1>Where the music happens</h1>
             {/* <button type="button" onClick={() => { playX(); playY() }}>play/pause</button><br></br> */}
             <button type="button" onClick={playX}>play/pause</button><br></br>

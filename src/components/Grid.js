@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 function Grid (props) {
 
     const [fingerIndexX, setFingerIndexX] = useState(200)
@@ -50,6 +50,8 @@ function Grid (props) {
         oscX.type = "sawtooth"
     }
 
+    
+
     function changeFreq(){
         if(props.indexFinger[0] > 0){
             setFingerIndexX(props.indexFinger[0])
@@ -60,13 +62,15 @@ function Grid (props) {
             } else {
                 oscillatorX = audioContext.createOscillator()
                 oscillatorX.type = oscX.type
-                oscillatorX.frequency.setValueAtTime(oscX.fingerPos, audioContext.currentTime)
+                oscillatorX.frequency.setValueAtTime(oscX.frequency, audioContext.currentTime)
                 oscillatorX.connect(audioContext.destination)
                 oscillatorX.start()
                 oscX.playing = true
             }
         }
     }
+
+
 
     setInterval(changeFreq, 100)
 
